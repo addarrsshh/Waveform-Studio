@@ -7,11 +7,9 @@ import {
   Copy,
   ChevronUp,
   ChevronDown,
-  RotateCw,
   Sparkles,
   AlertTriangle,
   Layers,
-  Wand2,
 } from 'lucide-react';
 
 interface SignalEditorProps {
@@ -82,14 +80,16 @@ export const SignalEditor: React.FC<SignalEditorProps> = ({
   };
 
   const handleShiftLeft = (id: string, bits: string) => {
-    if (bits.length <= 1) return;
-    const shifted = bits.slice(1) + bits[0];
+    const { sanitized } = sanitizeBits(bits);
+    if (sanitized.length <= 1) return;
+    const shifted = sanitized.slice(1) + sanitized[0];
     handleUpdateSignal(id, { bits: shifted });
   };
 
   const handleShiftRight = (id: string, bits: string) => {
-    if (bits.length <= 1) return;
-    const shifted = bits[bits.length - 1] + bits.slice(0, -1);
+    const { sanitized } = sanitizeBits(bits);
+    if (sanitized.length <= 1) return;
+    const shifted = sanitized[sanitized.length - 1] + sanitized.slice(0, -1);
     handleUpdateSignal(id, { bits: shifted });
   };
 

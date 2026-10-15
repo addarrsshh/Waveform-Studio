@@ -1,6 +1,6 @@
 import React, { useState, useRef, useMemo } from 'react';
 import { Signal, DiagramSettings } from '../types/waveform';
-import { calculateDiagramMetrics, escapeXml } from '../lib/waveform';
+import { calculateDiagramMetrics } from '../lib/waveform';
 import { ZoomIn, ZoomOut, RotateCcw, Maximize2, Activity } from 'lucide-react';
 
 interface WaveformCanvasProps {
@@ -146,13 +146,13 @@ export const WaveformCanvas: React.FC<WaveformCanvasProps> = ({
           </button>
           <button
             type="button"
-            disabled={fitToWidth && zoom === 1}
+            disabled={!fitToWidth && zoom === 1}
             onClick={() => {
               setZoom(1);
               setFitToWidth(false);
             }}
             title="Reset Zoom to 100%"
-            className="p-1.5 rounded text-slate-400 hover:text-slate-200 hover:bg-slate-800"
+            className="p-1.5 rounded text-slate-400 hover:text-slate-200 hover:bg-slate-800 disabled:opacity-40 disabled:hover:bg-transparent"
           >
             <RotateCcw className="w-3.5 h-3.5" />
           </button>

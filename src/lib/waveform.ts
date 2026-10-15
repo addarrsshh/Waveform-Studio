@@ -101,8 +101,8 @@ export function calculateDiagramMetrics(
     let inactivePathD = '';
 
     if (bits.length === 0) {
-      // Empty sequence: draw a flat low line across first slot or all slots
-      const endX = startX + settings.slotWidth;
+      // Empty sequence: draw a flat low line across the full time axis
+      const endX = startX + maxSlots * settings.slotWidth;
       pathD = `M ${startX.toFixed(1)} ${botY.toFixed(1)} H ${endX.toFixed(1)}`;
     } else {
       let currentX = startX;
@@ -135,9 +135,8 @@ export function calculateDiagramMetrics(
           const finalX = startX + maxSlots * settings.slotWidth;
           pathD += ` H ${finalX.toFixed(1)}`;
         } else if (settings.unequalLengthPolicy === 'dim-tail') {
-          // Separate inactive path for the tail
-          let tailStartX = currentX;
-          inactivePathD = `M ${tailStartX.toFixed(1)} ${botY.toFixed(1)} H ${(
+          // Separate inactive path for the tail — always drawn at low level
+          inactivePathD = `M ${currentX.toFixed(1)} ${botY.toFixed(1)} H ${(
             startX +
             maxSlots * settings.slotWidth
           ).toFixed(1)}`;

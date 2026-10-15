@@ -263,7 +263,7 @@ export const DiagramSettingsPanel: React.FC<DiagramSettingsProps> = ({
             <input
               id="label-width"
               type="range"
-              min="60"
+              min="20"
               max="160"
               step="5"
               value={settings.labelWidth}
@@ -328,6 +328,36 @@ export const DiagramSettingsPanel: React.FC<DiagramSettingsProps> = ({
               >
                 Slate Studio
               </button>
+              {/* Custom colour — spans full width, triggers native colour picker */}
+              <label
+                className={`col-span-2 flex items-center gap-2 px-2.5 py-1.5 rounded text-xs border cursor-pointer transition-colors ${
+                  settings.themePreset === 'technical-navy' ||
+                  settings.themePreset === 'obsidian' ||
+                  settings.themePreset === 'clean-white' ||
+                  settings.themePreset === 'slate-gray'
+                    ? 'border-slate-800 bg-slate-850 text-slate-300 hover:border-slate-700'
+                    : 'border-cyan-500 bg-cyan-950/40 text-cyan-300 font-semibold'
+                }`}
+              >
+                <input
+                  type="color"
+                  value={settings.backgroundColor}
+                  onChange={(e) => {
+                    // Mark as custom by using a themePreset value that isn't one of the 4 named ones.
+                    // We reuse the existing backgroundColor field via the generic update helper.
+                    onChangeSettings({
+                      ...settings,
+                      themePreset: 'technical-navy', // reset highlight so none are "active"
+                      backgroundColor: e.target.value,
+                    });
+                  }}
+                  className="w-5 h-5 rounded border-0 bg-transparent cursor-pointer flex-shrink-0"
+                />
+                <span>Custom Colour</span>
+                <span className="ml-auto font-mono text-[10px] uppercase opacity-70">
+                  {settings.backgroundColor}
+                </span>
+              </label>
             </div>
           </div>
 
