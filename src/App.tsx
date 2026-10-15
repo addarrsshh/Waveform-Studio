@@ -58,9 +58,6 @@ export const App: React.FC = () => {
               <h1 className="text-base sm:text-lg font-bold tracking-tight text-white font-mono">
                 Waveform Studio
               </h1>
-              <span className="text-[10px] uppercase font-mono tracking-widest px-1.5 py-0.5 rounded bg-cyan-950/80 border border-cyan-800 text-cyan-400">
-                v1.0
-              </span>
             </div>
             <p className="text-xs text-slate-400 hidden sm:block">
               Minimalist digital timing diagram editor & vector exporter
